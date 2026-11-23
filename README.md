@@ -1,13 +1,13 @@
 <h1 align="center">Human-Resources-Problem</h1>
 
 <p align="center">
-  Predictive analytics solution for employee attrition â€” XGBoost model + Metabase dashboard to help HR reduce turnover.<br>
-  <strong><a href="#usage">Explore usage Â»</a></strong>
+  Predictive analytics solution for employee attrition -- XGBoost model + Metabase dashboard to help HR reduce turnover.<br>
+  <strong><a href="#usage">Explore usage &#187;</a></strong>
   <br><br>
   <a href="https://github.com/7z1x/Human-Resources-Problem/issues/new?labels=bug">Report bug</a>
-  Â·
+  &#183;
   <a href="https://github.com/7z1x/Human-Resources-Problem/issues/new?labels=enhancement">Request feature</a>
-  Â·
+  &#183;
   <a href="https://github.com/7z1x/Human-Resources-Problem">Repository</a>
 </p>
 
@@ -30,36 +30,36 @@ dashboard so the HR team can monitor turnover drivers and act proactively.
 
 ### How it works
 
-1. **Data ingestion** â€” employee records (`employee_data.csv`) are loaded and cleaned;
+1. **Data ingestion** -- employee records (`employee_data.csv`) are loaded and cleaned;
    missing `Attrition` labels are imputed with the mode.
-2. **Feature engineering** â€” categorical features are one-hot encoded; feature names are
+2. **Feature engineering** -- categorical features are one-hot encoded; feature names are
    normalized to a readable title-cased format.
-3. **Scaling & balancing** â€” `StandardScaler` normalizes features, then **SMOTE**
+3. **Scaling & balancing** -- `StandardScaler` normalizes features, then **SMOTE**
    oversamples the minority class to address attrition imbalance.
-4. **Prediction** â€” a trained `XGBoost` model (persisted as `model_attrition_xgboost.pkl`)
+4. **Prediction** -- a trained `XGBoost` model (persisted as `model_attrition_xgboost.pkl`)
    scores each employee and appends an `Attrition Prediction` column.
-5. **Output** â€” predictions are exported to `predicted_attrition.csv` for downstream use.
-6. **Dashboarding** â€” a Metabase instance visualizes summary metrics, organizational
+5. **Output** -- predictions are exported to `predicted_attrition.csv` for downstream use.
+6. **Dashboarding** -- a Metabase instance visualizes summary metrics, organizational
    structure, satisfaction, demographics, and workload factors driving attrition.
 
 ---
 
 ## Files
 
-- **[README.md](README.md)** â€” the file you are currently reading.
-- **[requirements.txt](requirements.txt)** â€” Python dependencies.
-- **[predict.py](predict.py)** â€” end-to-end prediction script (load â†’ encode â†’ scale â†’ SMOTE â†’ predict â†’ export).
-- **[notebook.ipynb](notebook.ipynb)** â€” EDA, model training, and evaluation notebook.
-- **[dataset/employee_data.csv](dataset/employee_data.csv)** â€” source employee dataset.
-- **[model/model_attrition_xgboost.pkl](model/model_attrition_xgboost.pkl)** â€” trained XGBoost model artifact.
-- **[image/](image/)** â€” dashboard screenshots:
-  - `zulfahmi17z_dashboard.jpg` â€” summary (total employees, total resign, resign %).
-  - `zulfahmi17z_dashboard(1).jpg` â€” organizational structure (dept, job level, job role).
-  - `zulfahmi17z_dashboard(2).jpg` â€” satisfaction & involvement comparison.
-  - `zulfahmi17z_dashboard(3).jpg` â€” summary metrics panel.
-  - `zulfahmi17z_dashboard(4).jpg` â€” workload impact (OverTime, BusinessTravel).
-- **[metabase.db.mv.db](metabase.db.mv.db)** â€” local Metabase H2 database (dashboard state).
-- **[zulfahmi17z_video.mov](zulfahmi17z_video.mov)** â€” walkthrough video.
+- **[README.md](README.md)** -- the file you are currently reading.
+- **[requirements.txt](requirements.txt)** -- Python dependencies.
+- **[predict.py](predict.py)** -- end-to-end prediction script (load -> encode -> scale -> SMOTE -> predict -> export).
+- **[notebook.ipynb](notebook.ipynb)** -- EDA, model training, and evaluation notebook.
+- **[dataset/employee_data.csv](dataset/employee_data.csv)** -- source employee dataset.
+- **[model/model_attrition_xgboost.pkl](model/model_attrition_xgboost.pkl)** -- trained XGBoost model artifact.
+- **[image/](image/)** -- dashboard screenshots:
+  - `zulfahmi17z_dashboard.jpg` -- summary (total employees, total resign, resign %).
+  - `zulfahmi17z_dashboard(1).jpg` -- organizational structure (dept, job level, job role).
+  - `zulfahmi17z_dashboard(2).jpg` -- satisfaction & involvement comparison.
+  - `zulfahmi17z_dashboard(3).jpg` -- summary metrics panel.
+  - `zulfahmi17z_dashboard(4).jpg` -- workload impact (OverTime, BusinessTravel).
+- **[metabase.db.mv.db](metabase.db.mv.db)** -- local Metabase H2 database (dashboard state).
+- **[zulfahmi17z_video.mov](zulfahmi17z_video.mov)** -- walkthrough video.
 
 ---
 
@@ -127,24 +127,24 @@ Login credentials:
 
 The dashboard covers:
 
-- **Summary** â€” total employees, total resign, resign percentage.
-- **Organizational structure** â€” distribution by department, job level, and job role.
-- **Satisfaction & involvement** â€” `EnvironmentSatisfaction`, `JobInvolvement`,
+- **Summary** -- total employees, total resign, resign percentage.
+- **Organizational structure** -- distribution by department, job level, and job role.
+- **Satisfaction & involvement** -- `EnvironmentSatisfaction`, `JobInvolvement`,
   `JobSatisfaction` for resigned vs. retained employees.
-- **Demographics** â€” attrition by gender and marital status.
-- **Workload** â€” impact of `OverTime` and `BusinessTravel` frequency on attrition.
+- **Demographics** -- attrition by gender and marital status.
+- **Workload** -- impact of `OverTime` and `BusinessTravel` frequency on attrition.
 
 ---
 
 ## Key Insights
 
-- **Overall attrition** â€” 179 of 1,470 employees resigned (12.18%).
-- **OverTime** â€” employees working overtime have a **23.56%** resign rate vs. **7.69%**
+- **Overall attrition** -- 179 of 1,470 employees resigned (12.18%).
+- **OverTime** -- employees working overtime have a **23.56%** resign rate vs. **7.69%**
   for those who do not.
-- **Marital status** â€” single employees show the highest resign rate (~30%).
-- **Department** â€” Sales has the highest attrition (14.8%), followed by HR (12%).
-- **Travel** â€” frequent business travel raises resign rate to ~20%.
-- **Satisfaction** â€” retained employees consistently report higher environment, job, and
+- **Marital status** -- single employees show the highest resign rate (~30%).
+- **Department** -- Sales has the highest attrition (14.8%), followed by HR (12%).
+- **Travel** -- frequent business travel raises resign rate to ~20%.
+- **Satisfaction** -- retained employees consistently report higher environment, job, and
   involvement satisfaction.
 
 ---
