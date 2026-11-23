@@ -1,156 +1,167 @@
-# ✒️ Proyek Akhir: Menyelesaikan Permasalahan Perusahaan Edutech
+<h1 align="center">Human-Resources-Problem</h1>
+
+<p align="center">
+  Predictive analytics solution for employee attrition â€” XGBoost model + Metabase dashboard to help HR reduce turnover.<br>
+  <strong><a href="#usage">Explore usage Â»</a></strong>
+  <br><br>
+  <a href="https://github.com/7z1x/Human-Resources-Problem/issues/new?labels=bug">Report bug</a>
+  Â·
+  <a href="https://github.com/7z1x/Human-Resources-Problem/issues/new?labels=enhancement">Request feature</a>
+  Â·
+  <a href="https://github.com/7z1x/Human-Resources-Problem">Repository</a>
+</p>
+
+<p align="center">
+  <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white" alt="Python"></a>
+  <a href="https://xgboost.ai/"><img src="https://img.shields.io/badge/Model-XGBoost-brightgreen?logo=xgboost&logoColor=white" alt="XGBoost"></a>
+  <a href="https://www.metabase.com/"><img src="https://img.shields.io/badge/Dashboard-Metabase-509EE3?logo=metabase&logoColor=white" alt="Metabase"></a>
+  <a href="https://scikit-learn.org/"><img src="https://img.shields.io/badge/ML-scikit--learn-F7931E?logo=scikit-learn&logoColor=white" alt="scikit-learn"></a>
+</p>
 
 ---
 
-## 🚀 Business Understanding
+## Overview
 
-Jaya Jaya Maju adalah perusahaan multinasional dengan lebih dari 1000 karyawan. Saat ini, perusahaan menghadapi tantangan serius berupa tingginya attrition rate (lebih dari 10%), yang berdampak pada efisiensi kerja dan biaya operasional. Untuk mengatasi hal ini, tim HR membutuhkan analisis data yang mampu mengidentifikasi penyebab attrition rate (lebih dari 10%), sebuah dashboard untuk memantau kondisi tersebut, serta pendekatan prediktif untuk mengantisipasinya.
+**Human-Resources-Problem** is an end-to-end data science project that tackles high
+employee attrition at **Jaya Jaya Maju**, a multinational company with over 1,000
+employees and an attrition rate above 10%. The project combines exploratory data
+analysis, a predictive **XGBoost** classification model, and a **Metabase** business
+dashboard so the HR team can monitor turnover drivers and act proactively.
 
-### 🔍 Permasalahan Bisnis
+### How it works
 
-1. Tingginya attrition rate yang berpengaruh pada stabilitas dan biaya perusahaan.
-2. Kurangnya pemahaman berbasis data terkait alasan karyawan keluar.
-3. Tidak adanya dashboard yang memudahkan pemantauan faktor-faktor attrition.
-4. Belum ada rekomendasi konkret untuk mengurangi attrition rate berdasarkan data.
-
-### 📋 Cakupan Proyek
-
-1. Eksplorasi dan pembersihan data karyawan yang tersedia.
-2. Analisis eksploratif untuk menemukan pola dan hubungan antara attrition dan variabel lain.
-3. Pembuatan model prediktif untuk mengestimasi kemungkinan karyawan keluar di masa depan dengan algoritma **XGBoost**.
-4. Pembuatan business dashboard analisis attrition rate menggunakan **Metabase**
-5. Penyusunan rekomendasi berbasis data untuk membantu tim HR menurunkan attrition rate.
+1. **Data ingestion** â€” employee records (`employee_data.csv`) are loaded and cleaned;
+   missing `Attrition` labels are imputed with the mode.
+2. **Feature engineering** â€” categorical features are one-hot encoded; feature names are
+   normalized to a readable title-cased format.
+3. **Scaling & balancing** â€” `StandardScaler` normalizes features, then **SMOTE**
+   oversamples the minority class to address attrition imbalance.
+4. **Prediction** â€” a trained `XGBoost` model (persisted as `model_attrition_xgboost.pkl`)
+   scores each employee and appends an `Attrition Prediction` column.
+5. **Output** â€” predictions are exported to `predicted_attrition.csv` for downstream use.
+6. **Dashboarding** â€” a Metabase instance visualizes summary metrics, organizational
+   structure, satisfaction, demographics, and workload factors driving attrition.
 
 ---
 
-## ⚙️ Persiapan
+## Files
 
-📂 Sumber data: [Dataset Jaya jaya maju](https://github.com/dicodingacademy/dicoding_dataset/blob/main/employee/employee_data.csv)
+- **[README.md](README.md)** â€” the file you are currently reading.
+- **[requirements.txt](requirements.txt)** â€” Python dependencies.
+- **[predict.py](predict.py)** â€” end-to-end prediction script (load â†’ encode â†’ scale â†’ SMOTE â†’ predict â†’ export).
+- **[notebook.ipynb](notebook.ipynb)** â€” EDA, model training, and evaluation notebook.
+- **[dataset/employee_data.csv](dataset/employee_data.csv)** â€” source employee dataset.
+- **[model/model_attrition_xgboost.pkl](model/model_attrition_xgboost.pkl)** â€” trained XGBoost model artifact.
+- **[image/](image/)** â€” dashboard screenshots:
+  - `zulfahmi17z_dashboard.jpg` â€” summary (total employees, total resign, resign %).
+  - `zulfahmi17z_dashboard(1).jpg` â€” organizational structure (dept, job level, job role).
+  - `zulfahmi17z_dashboard(2).jpg` â€” satisfaction & involvement comparison.
+  - `zulfahmi17z_dashboard(3).jpg` â€” summary metrics panel.
+  - `zulfahmi17z_dashboard(4).jpg` â€” workload impact (OverTime, BusinessTravel).
+- **[metabase.db.mv.db](metabase.db.mv.db)** â€” local Metabase H2 database (dashboard state).
+- **[zulfahmi17z_video.mov](zulfahmi17z_video.mov)** â€” walkthrough video.
 
-Setup environment:
+---
+
+## Requirements
+
+- **Python 3.10+**
+
+| Package | Purpose |
+|---|---|
+| [xgboost](https://xgboost.ai/) | Gradient-boosted tree classifier |
+| [scikit-learn](https://scikit-learn.org/) | `StandardScaler`, metrics, preprocessing |
+| [imbalanced-learn](https://imbalanced-learn.org/) | `SMOTE` for class balancing |
+| [pandas](https://pandas.pydata.org/) | Data manipulation |
+| [numpy](https://numpy.org/) | Numerical operations |
+| [joblib](https://joblib.readthedocs.io/) | Model serialization |
+| [matplotlib](https://matplotlib.org/) / [seaborn](https://seaborn.pydata.org/) | Visualization |
+
+---
+
+## Installing
 
 ```bash
-# Membuat virtual environment
+git clone https://github.com/7z1x/Human-Resources-Problem.git
+cd Human-Resources-Problem
 python -m venv venv
 
-# Aktivasi environment
-# Windows
+# Activate the virtual environment
+# Windows:
 venv\Scripts\activate
-
-# MacOS/Linux
+# macOS / Linux:
 source venv/bin/activate
 
-# Install dependensi
 pip install -r requirements.txt
-
 ```
 
-### ➡️ Menjalankan Script Prediksi
+---
+
+## Usage
+
+### Run the prediction script
 
 ```bash
 python predict.py
 ```
 
----
+The script will:
 
-## 📊 Business Dashboard
+1. Load `dataset/employee_data.csv`.
+2. Impute missing `Attrition` values with the mode.
+3. One-hot encode categorical features and normalize names.
+4. Scale features with `StandardScaler` and balance classes with `SMOTE`.
+5. Load `model/model_attrition_xgboost.pkl` and generate predictions.
+6. Save results to `predicted_attrition.csv`.
 
-### Fitur Dashboard
-- Summary: berisi **Total-karyawan**, **Total-Resign**, dan **Persen-Resign**
+### Explore the Metabase dashboard
 
-![](https://github.com/7z1x/Belajar-Penerapan-Data-Science/blob/125b53881400ede5abe33902dd51c727297af5df/image/zulfahmi17z_dashboard(3).jpg)
+A deployed dashboard is available at:
 
-- Struktur Organisasi: Distribusi karyawan berdasarkan **departemen**, **joblevel**, dan **jobrole**.
+- **[Dashboard Metabase](https://metabase.turu.eu.org/dashboard/2-jaya-jaya-maju-zulfahmi)**
 
-![](https://github.com/7z1x/Belajar-Penerapan-Data-Science/blob/125b53881400ede5abe33902dd51c727297af5df/image/zulfahmi17z_dashboard(1).jpg)
+Login credentials:
 
-- Kepuasan dan Keterlibatan: Perbandingan **EnvironmentSatisfaction**, **JobInvolvement**, dan **JobSatisfaction** antara karyawan yang resign dan tidak resign.
+- **Email:** `root@mail.com`
+- **Password:** `root123`
 
-![](https://github.com/7z1x/Belajar-Penerapan-Data-Science/blob/125b53881400ede5abe33902dd51c727297af5df/image/zulfahmi17z_dashboard(2).jpg)
+The dashboard covers:
 
-- Faktor Demografis: Analisis attrition berdasarkan **Gender** dan **MarritalStatus**.
-
-![](https://github.com/7z1x/Belajar-Penerapan-Data-Science/blob/125b53881400ede5abe33902dd51c727297af5df/image/zulfahmi17z_dashboard.jpg)
-
-- Kondisi Kerja: Dampak lembur **OverTime** dan frekuensi perjalanan dinas **BusinessTravel**terhadap attrition rate.
-
-![](https://github.com/7z1x/Belajar-Penerapan-Data-Science/blob/125b53881400ede5abe33902dd51c727297af5df/image/zulfahmi17z_dashboard(4).jpg)
-
-### ✅ Insight
-
-- Summary: Dari total 1,470 karyawan, 179 telah mengundurkan diri (12.18% tingkat resign).
-- Satisfaction Insight: Karyawan yang tidak resign memiliki kepuasan lingkungan, keterlibatan pekerjaan, dan kepuasan kerja yang lebih tinggi (sekitar 2.5-3) dibandingkan yang resign (sekitar 2.5).
-- Gender & Status: Tingkat resign tertinggi pada karyawan lajang (30%), sedangkan perbedaan gender menunjukkan tingkat resign serupa (12.07% wanita, 12.24% pria).
-- Organizational Overview: Departemen Sales memiliki tingkat resign tertinggi (14.8%), diikuti Human Resources (12%). Tingkat resign juga bervariasi berdasarkan peran pekerjaan, dengan Sales Representative dan Research Director menonjol.
-- Workload Impact: Karyawan dengan overtime memiliki tingkat resign yang jauh lebih tinggi (23.56%) dibandingkan yang tidak (7.69%). Frequent business travel juga meningkatkan tingkat resign (sekitar 20%) dibandingkan non-travel atau travel rarely
-
-### 🎥 Video
-- [Link Video](https://drive.google.com/drive/folders/1mX5Y9gvlK_skZWqvj-7X08D04j3LlFDA?usp=sharing)
-
-### ⬇️ Deploy Metabase
-- [Dashboard Metabase](https://metabase.turu.eu.org/dashboard/2-jaya-jaya-maju-zulfahmi)
-
-Gunakan login berikut:
-  - **Email**: `root@mail.com`
-  - **Password**: `root123`
-
-### 🔐 Akses Metabase (setup lokal)
-
-Gunakan login berikut saat pertama kali setup:
-
-- **Email**: `root@mail.com`
-- **Password**: `root123`
-  
----
-
-## 🌟 Conclusion
-Berdasarkan analisis data dan model prediksi yang dilakukan, ditemukan beberapa faktor utama yang memengaruhi keputusan karyawan untuk resign, antara lain: 
-- status lembur (OverTime)
-- level stock option (StockOptionLevel)
-- jabatan (JobRole dan JobLevel)
-- kepuasan terhadap lingkungan kerja (EnvironmentSatisfaction) dan
-- keterlibatan kerja (JobInvolvement)
-  
-Karyawan yang tidak lembur, memiliki stock option lebih tinggi, serta job level yang lebih tinggi cenderung memiliki tingkat resign yang lebih rendah. Selain itu, karyawan yang sering melakukan perjalanan bisnis dan yang masih lajang menunjukkan kecenderungan berbeda dalam tingkat resign. Dengan demikian, perusahaan dapat lebih fokus pada faktor-faktor tersebut untuk menurunkan tingkat turnover dan meningkatkan retensi karyawan.
+- **Summary** â€” total employees, total resign, resign percentage.
+- **Organizational structure** â€” distribution by department, job level, and job role.
+- **Satisfaction & involvement** â€” `EnvironmentSatisfaction`, `JobInvolvement`,
+  `JobSatisfaction` for resigned vs. retained employees.
+- **Demographics** â€” attrition by gender and marital status.
+- **Workload** â€” impact of `OverTime` and `BusinessTravel` frequency on attrition.
 
 ---
 
-## 🎯 Rekomendasi Action Items
+## Key Insights
 
-- Optimalkan Kebijakan Karyawan untuk Meningkatkan Retensi
-  - Perusahaan perlu meninjau dan mengembangkan kebijakan terkait lembur, benefit (seperti stock option), serta kesejahteraan karyawan secara menyeluruh. Hal ini meliputi pemberian insentif yang adil bagi yang lembur, program stock option untuk meningkatkan loyalitas, serta upaya meningkatkan kepuasan dan keterlibatan karyawan melalui survei dan budaya kerja positif. Selain itu, perhatian khusus juga perlu diberikan kepada karyawan yang sering melakukan perjalanan bisnis, dengan menyediakan fleksibilitas jadwal dan dukungan logistik guna mengurangi stres dan risiko resign.
-- Evaluasi dan Monitoring rutin melalui dashboard
-  - Manfaatkan dashboard yang sudah ada untuk terus memantau kondisi karyawan dan mengidentifikasi risiko resign lebih awal.
-- Integrasi Model Prediksi ke dalam Sistem HRIS untuk Deteksi Dini Risiko Attrition
-  - Pasang model ini di sistem HRIS agar bisa mendeteksi karyawan yang berisiko resign dan cepat diatasi.
- 
----
- 
-## 🗂️ Struktur Folder Proyek
-
-```
-submission/
-│
-├── dataset/
-│   └── employee_data.csv
-│
-├── image/
-│   └── zulfahmi17z_dashboard(1).jpg
-│   └── zulfahmi17z_dashboard(2).jpg
-│   └── zulfahmi17z_dashboard(3).jpg
-│   └── zulfahmi17z_dashboard(4).jpg
-│   └── zulfahmi17z_dashboard.jpg
-│ 
-├── model/
-│   └── model_attrition_xgboost.pkl
-│
-├── metabase.db.mv.db (belum tau)
-├── notebook.ipynb
-├── predict.py
-├── requirements.txt
-├── zulfahmi17z_video.mov
-└── README.md
-```
+- **Overall attrition** â€” 179 of 1,470 employees resigned (12.18%).
+- **OverTime** â€” employees working overtime have a **23.56%** resign rate vs. **7.69%**
+  for those who do not.
+- **Marital status** â€” single employees show the highest resign rate (~30%).
+- **Department** â€” Sales has the highest attrition (14.8%), followed by HR (12%).
+- **Travel** â€” frequent business travel raises resign rate to ~20%.
+- **Satisfaction** â€” retained employees consistently report higher environment, job, and
+  involvement satisfaction.
 
 ---
 
+## Conclusion
+
+Key drivers of attrition identified by the model and dashboard include **overtime status**,
+**stock option level**, **job role/level**, **environment satisfaction**, and **job
+involvement**. Employees without overtime, higher stock options, and higher job levels
+tend to stay. The company should focus on overtime policy, benefits, satisfaction programs,
+and travel flexibility to reduce turnover.
+
+---
+
+## Acknowledgements
+
+Built as a final project for the Dicoding *Belajar Penerapan Data Science* course using
+[XGBoost](https://xgboost.ai/), [scikit-learn](https://scikit-learn.org/),
+[Metabase](https://www.metabase.com/), and the
+[Dicoding employee dataset](https://github.com/dicodingacademy/dicoding_dataset).
