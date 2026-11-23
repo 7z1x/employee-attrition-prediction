@@ -44,25 +44,6 @@ dashboard so the HR team can monitor turnover drivers and act proactively.
 
 ---
 
-## Files
-
-- **[README.md](README.md)** -- the file you are currently reading.
-- **[requirements.txt](requirements.txt)** -- Python dependencies.
-- **[predict.py](predict.py)** -- end-to-end prediction script (load -> encode -> scale -> SMOTE -> predict -> export).
-- **[notebook.ipynb](notebook.ipynb)** -- EDA, model training, and evaluation notebook.
-- **[dataset/employee_data.csv](dataset/employee_data.csv)** -- source employee dataset.
-- **[model/model_attrition_xgboost.pkl](model/model_attrition_xgboost.pkl)** -- trained XGBoost model artifact.
-- **[image/](image/)** -- dashboard screenshots:
-  - `zulfahmi17z_dashboard.jpg` -- summary (total employees, total resign, resign %).
-  - `zulfahmi17z_dashboard(1).jpg` -- organizational structure (dept, job level, job role).
-  - `zulfahmi17z_dashboard(2).jpg` -- satisfaction & involvement comparison.
-  - `zulfahmi17z_dashboard(3).jpg` -- summary metrics panel.
-  - `zulfahmi17z_dashboard(4).jpg` -- workload impact (OverTime, BusinessTravel).
-- **[metabase.db.mv.db](metabase.db.mv.db)** -- local Metabase H2 database (dashboard state).
-- **[zulfahmi17z_video.mov](zulfahmi17z_video.mov)** -- walkthrough video.
-
----
-
 ## Requirements
 
 - **Python 3.10+**
