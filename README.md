@@ -109,7 +109,7 @@ Data Loading → EDA → Cleaning → Encoding → Scaling + SMOTE → XGBoost �
 7. **Evaluation** — confusion matrix, classification report, accuracy.
 8. **Scoring + Dashboard** — batch scoring to `predicted_attrition.csv`, insights surfaced in Metabase.
 
-> **Note on preprocessing order:** the notebook applies scaling and SMOTE *before* the train/test split. This is a known leakage pattern that inflates the test score — it is documented rather than hidden, and the fix is listed under [Next Steps](#-next-steps).
+> **Note on preprocessing order:** the notebook applies scaling and SMOTE *before* the train/test split. This is a known leakage pattern that inflates the test score — it is documented openly rather than hidden.
 
 ---
 
@@ -377,20 +377,6 @@ employee-attrition-prediction/
 | Visualization | Matplotlib, Seaborn |
 | Model persistence | joblib |
 | Business intelligence | Metabase |
-
----
-
-## 🔭 Next Steps
-
-- [ ] **Fix the leakage:** split first, then fit `StandardScaler` and apply SMOTE only to training data
-- [ ] Drop constant and identifier columns (`EmployeeCount`, `StandardHours`, `Over18`, `EmployeeId`)
-- [ ] Investigate the 412 unlabelled rows — confirm whether they represent real leavers
-- [ ] Add hyperparameter tuning (`RandomizedSearchCV`) to move beyond the baseline
-- [ ] Tune the decision threshold against a precision-recall curve, aligned with HR capacity
-- [ ] Evaluate on a realistic, unbalanced holdout set to get a trustworthy production estimate
-- [ ] Add temporal validation across yearly cohorts
-- [ ] Expose scores through a small Streamlit app or HRIS integration instead of a CSV
-- [ ] Add unit tests for the preprocessing and scoring pipeline
 
 ---
 
