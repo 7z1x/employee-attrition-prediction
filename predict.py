@@ -7,7 +7,7 @@ warnings.filterwarnings("ignore")
 
 def run_prediction():
 
-    df = pd.read_csv('employee_data.csv')
+    df = pd.read_csv('dataset/employee_data.csv')
 
     label = df['Attrition'].fillna(df['Attrition'].mode()[0])
     df_features = df.drop(columns=['Attrition'])
@@ -20,7 +20,7 @@ def run_prediction():
     balancer = SMOTE(random_state=42)
     x_balanced, y_balanced = balancer.fit_resample(normalized_data, label)
 
-    model_path = 'model_attrition_xgboost.pkl'
+    model_path = 'model/model_attrition_xgboost.pkl'
     trained_model = joblib.load(model_path)
     hasil_prediksi = trained_model.predict(normalized_data)
 
